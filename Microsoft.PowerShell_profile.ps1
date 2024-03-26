@@ -11,7 +11,7 @@ function prompt {
 
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
 
-function Set-ShellTitle {
+function ctitle {
     param (
         [string]$Title
     )
