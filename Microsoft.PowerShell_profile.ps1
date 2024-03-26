@@ -38,6 +38,10 @@ function gitc {
     git commit -m $Message
 }
 
+function gitlog {
+    git log --graph --oneline -n 15
+}
+
 function gits {
     git status -v
 }
