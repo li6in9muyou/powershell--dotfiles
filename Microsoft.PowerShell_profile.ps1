@@ -25,6 +25,14 @@ function here {
     explorer.exe .
 }
 
+function remove {
+    param (
+        [string]$target
+    )
+
+    Remove-Item -Force -Recurse $target
+}
+
 function pyserve {
     python -m http.server 13333
 }
