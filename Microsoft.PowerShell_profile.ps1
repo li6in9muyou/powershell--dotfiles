@@ -54,6 +54,6 @@ function gits {
     git status -v
 }
 
-Set-PSReadLineKeyHandler -Chord Ctrl+p -Function HistorySearchBackward
-Set-PSReadLineKeyHandler -Chord Ctrl+n -Function HistorySearchForward
+Set-PSReadLineKeyHandler -Chord Ctrl+p -Function PreviousHistory
+Set-PSReadLineKeyHandler -Chord Ctrl+n -Function NextHistory
 
