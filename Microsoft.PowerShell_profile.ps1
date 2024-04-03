@@ -5,6 +5,14 @@ Set-PSReadLineOption -PredictionSource History
 Set-PSReadLineOption -PredictionViewStyle ListView
 Set-PSReadLineOption -EditMode Windows
 
+function ll {
+    param (
+        [string]$target
+    )
+
+    Get-ChildItem $target | Sort-Object -Property LastWriteTime
+}
+
 function prompt {
     "$([char]27)[41m$([char]27)[93mPS $($executionContext.SessionState.Path.CurrentLocation)>$([char]27)[0m "
 }
