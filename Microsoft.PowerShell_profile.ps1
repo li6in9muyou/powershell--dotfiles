@@ -27,8 +27,6 @@ function ctitle {
     $host.ui.RawUI.WindowTitle = $Title
 }
 
-Set-Alias -Name st -Value Set-ShellTitle
-
 function here {
     explorer.exe .
 }
