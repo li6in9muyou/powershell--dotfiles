@@ -5,7 +5,8 @@ Set-PSReadLineOption -PredictionSource History
 Set-PSReadLineOption -PredictionViewStyle ListView
 Set-PSReadLineOption -EditMode Windows
 
-function ll {
+function ll
+{
     param (
         [string]$target
     )
@@ -13,13 +14,15 @@ function ll {
     Get-ChildItem $target | Sort-Object -Property LastWriteTime
 }
 
-function prompt {
+function prompt
+{
     "$([char]27)[41m$([char]27)[93mPS $($executionContext.SessionState.Path.CurrentLocation)>$([char]27)[0m "
 }
 
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
 
-function ctitle {
+function ctitle
+{
     param (
         [string]$Title
     )
@@ -27,11 +30,13 @@ function ctitle {
     $host.ui.RawUI.WindowTitle = $Title
 }
 
-function here {
+function here
+{
     explorer.exe .
 }
 
-function remove {
+function remove
+{
     param (
         [string]$target
     )
@@ -39,11 +44,13 @@ function remove {
     Remove-Item -Force -Recurse $target
 }
 
-function pyserve {
+function pyserve
+{
     python -m http.server 13333
 }
 
-function gitc {
+function gitc
+{
     param (
         [Parameter(Mandatory=$true)]
         [string]$Message
@@ -52,11 +59,13 @@ function gitc {
     git commit -m $Message
 }
 
-function gitlog {
+function gitlog
+{
     git log --graph --oneline -n 15
 }
 
-function gits {
+function gits
+{
     git status -v
 }
 
