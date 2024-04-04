@@ -5,13 +5,29 @@ Set-PSReadLineOption -PredictionSource History
 Set-PSReadLineOption -PredictionViewStyle ListView
 Set-PSReadLineOption -EditMode Windows
 
+function Convert-BytesToHumanReadable
+{
+    param(
+        [Parameter(Mandatory=$true)]
+        [int64]$Bytes
+    )
+
+    $sizes = 'B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'
+    $factor = [math]::Floor([math]::Log($Bytes, 1024))
+    $humanReadable = [string]::Format("{0,8:F2}{1}", $Bytes / [math]::Pow(1024, $factor), $sizes[$factor])
+
+    return $humanReadable
+}
+
 function ll
 {
     param (
         [string]$target
     )
 
+    $readable = @{label="Size";expression={Convert-BytesToHumanReadable($_.Length)}}
     Get-ChildItem $target | Sort-Object -Property LastWriteTime
+    | Select-Object -Property Name, LastWriteTime, $readable
 }
 
 function prompt
