@@ -80,7 +80,19 @@ function gitc
 
 function gitlog
 {
-    git log --graph --oneline -n 15 --exclude=refs/heads/deprecated/* --all
+    param (
+        [Parameter(Mandatory=$false)]
+        [Alias("a")]
+        [switch]$showDeprecated
+    )
+
+    if(-not $showDeprecated)
+    {
+        git log --graph --oneline -n 15 --exclude=refs/heads/deprecated/* --all
+    } else
+    {
+        git log --graph --oneline -n 15 --all
+    }
 }
 
 function gitdb
