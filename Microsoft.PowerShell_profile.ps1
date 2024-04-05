@@ -26,8 +26,11 @@ function ll
     )
 
     $readable = @{label="Size";expression={Convert-BytesToHumanReadable($_.Length)}}
-    Get-ChildItem $target | Sort-Object -Property LastWriteTime
-    | Select-Object -Property Name, LastWriteTime, $readable
+    $padded = @{label="Name";expression={"  {0}" -f $_.Name}}
+
+    Get-ChildItem $target 
+    | Sort-Object -Property LastWriteTime
+    | Select-Object -Property LastWriteTime, $readable, $padded
 }
 
 function prompt
