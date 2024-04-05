@@ -80,7 +80,7 @@ function gitc
 
 function gitlog
 {
-    git log --graph --oneline -n 15
+    git log --graph --oneline -n 15 --exclude=refs/heads/deprecated/* --all
 }
 
 function gits
