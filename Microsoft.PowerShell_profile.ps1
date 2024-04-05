@@ -83,6 +83,16 @@ function gitlog
     git log --graph --oneline -n 15 --exclude=refs/heads/deprecated/* --all
 }
 
+function gitdb
+{
+    param (
+        [Parameter(Mandatory=$true)]
+        [string]$branchToDelete
+    )
+
+    git branch -M $branchToDelete $("deprecated/{0}" -f $branchToDelete)
+}
+
 function gits
 {
     git status -v
