@@ -95,6 +95,10 @@ function gitlog
     }
 }
 
+New-Alias -Name gtilog -Value gitlog -Force
+New-Alias -Name gitlgo -Value gitlog -Force
+New-Alias -Name gtilgo -Value gitlog -Force
+
 function gitdb
 {
     param (
@@ -109,6 +113,10 @@ function gits
 {
     git status -v
 }
+
+New-Alias -Name gist -Value gits -Force
+New-Alias -Name gsit -Value gits -Force
+New-Alias -Name gsti -Value gits -Force
 
 Set-PSReadLineKeyHandler -Chord Ctrl+p -Function PreviousHistory
 Set-PSReadLineKeyHandler -Chord Ctrl+n -Function NextHistory
