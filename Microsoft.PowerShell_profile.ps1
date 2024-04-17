@@ -82,6 +82,9 @@ function gitc
 function gitlog
 {
     param (
+        [Parameter(Position=0)]
+        [string]$grep,
+
         [Parameter(Mandatory=$false)]
         [Alias("a")]
         [switch]$showDeprecated
@@ -89,7 +92,13 @@ function gitlog
 
     if(-not $showDeprecated)
     {
-        git log --graph --oneline -n 15 --exclude=refs/heads/deprecated/* --all
+        if(-not $grep)
+        {
+            git log --graph --oneline -n 15 --exclude=refs/heads/deprecated/* --all
+        } else
+        {
+            git log --graph --oneline -n 15 --exclude=refs/heads/deprecated/* --all --grep $grep
+        }
     } else
     {
         git log --graph --oneline -n 15 --all
