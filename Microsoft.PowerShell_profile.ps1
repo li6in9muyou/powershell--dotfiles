@@ -69,46 +69,6 @@ function pyserve
     python -m http.server 13333
 }
 
-function gitc
-{
-    param (
-        [Parameter(Mandatory=$true)]
-        [string]$Message
-    )
-
-    git commit -m $Message
-}
-
-function gitlog
-{
-    param (
-        [Parameter(Position=0)]
-        [string]$grep,
-
-        [Parameter(Mandatory=$false)]
-        [Alias("a")]
-        [switch]$showDeprecated
-    )
-
-    if(-not $showDeprecated)
-    {
-        if(-not $grep)
-        {
-            git log --graph --oneline -n 15 --exclude=refs/heads/deprecated/* --all
-        } else
-        {
-            git log --graph --oneline -n 15 --exclude=refs/heads/deprecated/* --all --grep $grep
-        }
-    } else
-    {
-        git log --graph --oneline -n 15 --all
-    }
-}
-
-New-Alias -Name gtilog -Value gitlog -Force
-New-Alias -Name gitlgo -Value gitlog -Force
-New-Alias -Name gtilgo -Value gitlog -Force
-
 function gitdb
 {
     param (
@@ -118,15 +78,6 @@ function gitdb
 
     git branch -M $branchToDelete $("deprecated/{0}" -f $branchToDelete)
 }
-
-function gits
-{
-    git status -v
-}
-
-New-Alias -Name gist -Value gits -Force
-New-Alias -Name gsit -Value gits -Force
-New-Alias -Name gsti -Value gits -Force
 
 Set-PSReadLineKeyHandler -Chord Ctrl+p -Function PreviousHistory
 Set-PSReadLineKeyHandler -Chord Ctrl+n -Function NextHistory
