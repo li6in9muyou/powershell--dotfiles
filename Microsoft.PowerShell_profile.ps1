@@ -25,12 +25,17 @@ function ll
         [string]$target
     )
 
-    $readable = @{label="Size";expression={Convert-BytesToHumanReadable($_.Length)}}
-    $padded = @{label="Name";expression={"  {0}" -f $_.Name}}
-
-    Get-ChildItem $target 
-    | Sort-Object -Property LastWriteTime
-    | Select-Object -Property LastWriteTime, $readable, $padded
+    Get-ChildItem $target | ForEach-Object {
+        $name = $_.Name
+        if ($_.PSIsContainer) {
+            $name += "\"
+        }
+        [PSCustomObject]@{
+            LastWriteTime = $_.LastWriteTime
+            Size = Convert-BytesToHumanReadable($_.Length)
+            Name = "  " + $name
+        }
+    } | Sort-Object -Property LastWriteTime
 }
 
 function prompt
