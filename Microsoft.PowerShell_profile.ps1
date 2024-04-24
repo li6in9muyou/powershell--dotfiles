@@ -62,10 +62,10 @@ function here
 function remove
 {
     param (
-        [string]$target
+        [string[]]$targets
     )
 
-    Remove-Item -Force -Recurse $target
+    Remove-Item -Force -Recurse $targets
 }
 
 function pyserve
