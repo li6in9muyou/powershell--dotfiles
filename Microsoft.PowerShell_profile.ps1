@@ -85,6 +85,15 @@ function gitdb
     git branch -M $branchToDelete $("deprecated/{0}" -f $branchToDelete)
 }
 
+function touch
+{
+    param (
+        [string]$target
+    )
+
+    (Get-ChildItem $target).LastWriteTime = Get-Date
+}
+
 Set-PSReadLineKeyHandler -Chord Ctrl+p -Function PreviousHistory
 Set-PSReadLineKeyHandler -Chord Ctrl+n -Function NextHistory
 Set-PSReadLineKeyHandler -Chord Ctrl+y -Function AcceptLine
