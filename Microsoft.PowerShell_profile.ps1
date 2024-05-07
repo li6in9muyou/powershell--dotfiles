@@ -27,7 +27,8 @@ function ll
 
     Get-ChildItem $target | ForEach-Object {
         $name = $_.Name
-        if ($_.PSIsContainer) {
+        if ($_.PSIsContainer)
+        {
             $name += "\"
         }
         [PSCustomObject]@{
