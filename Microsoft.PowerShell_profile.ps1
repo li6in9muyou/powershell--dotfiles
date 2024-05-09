@@ -41,7 +41,8 @@ function ll
 
 function prompt
 {
-    "$([char]27)[41m$([char]27)[93mPS $($executionContext.SessionState.Path.CurrentLocation)>$([char]27)[0m "
+    # https://learn.microsoft.com/en-us/windows/console/console-virtual-terminal-sequences#extended-colors
+    "$([char]27)[48;2;255;0;0m$([char]27)[38;2;255;255;0mPS $($executionContext.SessionState.Path.CurrentLocation)>$([char]27)[0m "
 }
 
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
