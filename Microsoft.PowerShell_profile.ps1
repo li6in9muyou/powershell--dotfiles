@@ -41,8 +41,40 @@ function ll
 
 function prompt
 {
+    function truncate_path
+    {
+        param (
+            [string]$Path,
+            [int]$MaxTotalLength = 70
+        )
+
+        if ($Path.Length -lt $MaxTotalLength)
+        {
+            return $Path
+        }
+
+        $pathComponents = $Path.split("\")
+        [array]::Reverse($pathComponents)
+
+        $truncatedComponents = @()
+        $totalLength = 0
+        foreach ($component in $pathComponents)
+        {
+            if ($totalLength + $component.Length -gt $MaxTotalLength)
+            {
+                break
+            }
+
+            $truncatedComponents += $component
+            $totalLength += $component.Length
+        }
+        [array]::Reverse($truncatedComponents)
+        $truncatedPath = $truncatedComponents -join '\'
+
+        return "..." + $truncatedPath
+    }
     # https://learn.microsoft.com/en-us/windows/console/console-virtual-terminal-sequences#extended-colors
-    "$([char]27)[48;2;255;0;0m$([char]27)[38;2;255;255;0mPS $($executionContext.SessionState.Path.CurrentLocation)>$([char]27)[0m "
+    "$([char]27)[48;2;255;0;0m$([char]27)[38;2;255;255;0mPS $(truncate_path $executionContext.SessionState.Path.CurrentLocation)>$([char]27)[0m "
 }
 
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
