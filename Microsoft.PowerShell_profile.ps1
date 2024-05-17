@@ -130,4 +130,5 @@ function touch
 Set-PSReadLineKeyHandler -Chord Ctrl+p -Function PreviousHistory
 Set-PSReadLineKeyHandler -Chord Ctrl+n -Function NextHistory
 Set-PSReadLineKeyHandler -Chord Ctrl+y -Function AcceptLine
+Set-Alias -Name gti -Value git -Force
 
