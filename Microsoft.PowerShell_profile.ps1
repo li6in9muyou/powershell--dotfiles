@@ -132,3 +132,15 @@ Set-PSReadLineKeyHandler -Chord Ctrl+n -Function NextHistory
 Set-PSReadLineKeyHandler -Chord Ctrl+y -Function AcceptLine
 Set-Alias -Name gti -Value git -Force
 
+function sb
+{
+    $b = $(git branch --all | fzf)
+    if ($null -eq $b)
+    {
+        Write-Host "no branch is selected"
+        return
+    }
+
+    $branch = $b.Substring(2)
+    git checkout $branch
+}
