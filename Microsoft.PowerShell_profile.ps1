@@ -88,6 +88,15 @@ function ctitle
     $host.ui.RawUI.WindowTitle = $Title
 }
 
+
+function mytabs
+{
+    wt new-tab --tabColor '#FF0000' --title 'MAIN'
+    wt new-tab --tabColor '#00FF00' --title 'GIT_GIT_GIT'
+    wt new-tab --tabColor '#aaaaaa' --title 'DAEMON_DAEMON'
+    wt new-tab --tabColor '#0000aa' --title 'WHATEVER'
+}
+
 function here
 {
     explorer.exe .
