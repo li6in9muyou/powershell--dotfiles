@@ -56,19 +56,26 @@ function prompt
         $pathComponents = $Path.split("\")
         [array]::Reverse($pathComponents)
 
-        $truncatedComponents = @()
+        $truncated = $false
+        [System.Collections.ArrayList]$truncatedComponents = @()
         $totalLength = 0
         foreach ($component in $pathComponents)
         {
             if ($totalLength + $component.Length -gt $MaxTotalLength)
             {
+                $truncated = $true
                 break
             }
 
             $truncatedComponents += $component
             $totalLength += $component.Length
         }
-        [array]::Reverse($truncatedComponents)
+        if (!$truncated)
+        {
+            $truncatedComponents.Remove($truncatedComponents[-1])
+        }
+
+        $truncatedComponents.Reverse()
         $truncatedPath = $truncatedComponents -join '\'
 
         return "..." + $truncatedPath
