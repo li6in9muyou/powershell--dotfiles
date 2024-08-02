@@ -161,3 +161,20 @@ function sb
     $branch = $b.Substring(2)
     git checkout $branch
 }
+
+function repeat
+{
+    param(
+        [Parameter(Mandatory=$true, Position=0)]
+        [int]$Count,
+        [Parameter(Mandatory=$true, Position=1)]
+        [string]$Command
+    )
+
+
+    for ($i = 0; $i -lt $Count; $i++)
+    {
+        Write-Host "running: $i / $Count"
+        Invoke-Expression $Command
+    }
+}
