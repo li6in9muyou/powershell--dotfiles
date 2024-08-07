@@ -174,7 +174,7 @@ function repeat
 
     for ($i = 0; $i -lt $Count; $i++)
     {
-        Write-Host "running: $i / $Count"
+        Write-Host "running: $i / $Count" -BackgroundColor Blue -ForegroundColor Yellow
         Invoke-Expression $Command
     }
 }
