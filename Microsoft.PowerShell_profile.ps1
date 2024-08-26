@@ -80,8 +80,11 @@ function prompt
 
         return "..." + $truncatedPath
     }
+
+    $time = $(Get-Date -Format "HH:mm:ss")
+
     # https://learn.microsoft.com/en-us/windows/console/console-virtual-terminal-sequences#extended-colors
-    "$([char]27)[48;2;255;0;0m$([char]27)[38;2;255;255;0m$($Host.UI.RawUI.WindowTitle -Split '_' | Select-Object -first 1) $(truncate_path $executionContext.SessionState.Path.CurrentLocation)>$([char]27)[0m "
+    "$([char]27)[48;2;255;0;0m$([char]27)[38;2;255;255;0m$time $($Host.UI.RawUI.WindowTitle -Split '_' | Select-Object -first 1) $(truncate_path $executionContext.SessionState.Path.CurrentLocation)>$([char]27)[0m "
 }
 
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
