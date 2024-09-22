@@ -169,15 +169,21 @@ function repeat
 {
     param(
         [Parameter(Mandatory=$true, Position=0)]
-        [int]$Count,
-        [Parameter(Mandatory=$true, Position=1)]
-        [string]$Command
+        $Param1,
+        [Parameter(Mandatory=$false, Position=1)]
+        $Param2
     )
-
+    if ($Param2 -ne $null) {
+        $Count = $Param1
+        $Command = $Param2
+    } else {
+        $Count = 7
+        $Command = $Param1
+    }
 
     for ($i = 1; $i -lt $Count + 1; $i++)
     {
-        Write-Host "running: $i / $Count" -BackgroundColor Blue -ForegroundColor Yellow
+        Write-Host "running: $i / $Count, $Command" -BackgroundColor Blue -ForegroundColor Yellow
         Invoke-Expression $Command
     }
 }
