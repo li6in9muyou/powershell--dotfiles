@@ -19,24 +19,48 @@ function Convert-BytesToHumanReadable
     return $humanReadable
 }
 
+function format-for-ll
+{
+    $name = $_.Name
+    if ($_.PSIsContainer)
+    {
+        $name += "\"
+    }
+    [PSCustomObject]@{
+        LastWriteTime = $_.LastWriteTime
+        Size = Convert-BytesToHumanReadable($_.Length)
+        Name = "  " + $name
+    }
+}
+
+function list-existing-dir
+{
+    param (
+        [string]$target
+    )
+
+    Get-ChildItem $target
+    | ForEach-Object { format-for-ll }
+    | Sort-Object -Property LastWriteTime
+}
+
 function ll
 {
     param (
         [string]$target
     )
 
-    Get-ChildItem $target | ForEach-Object {
-        $name = $_.Name
-        if ($_.PSIsContainer)
-        {
-            $name += "\"
-        }
-        [PSCustomObject]@{
-            LastWriteTime = $_.LastWriteTime
-            Size = Convert-BytesToHumanReadable($_.Length)
-            Name = "  " + $name
-        }
-    } | Sort-Object -Property LastWriteTime
+    if(Test-Path $target)
+    {
+        list-existing-dir $target
+    } else
+    {
+        Write-Host "filter: Where-Object -Property Name -CMatch $target" -ForegroundColor Red
+        Get-ChildItem -Depth 1
+        | Where-Object -Property Name -CMatch $target
+        | ForEach-Object { format-for-ll }
+        | Sort-Object -Property LastWriteTime
+    }
 }
 
 function prompt
