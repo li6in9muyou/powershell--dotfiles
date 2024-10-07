@@ -56,7 +56,7 @@ function ll
     } else
     {
         Write-Host "filter: Where-Object -Property Name -CMatch $target" -ForegroundColor Red
-        Get-ChildItem -Depth 1
+        Get-ChildItem -Depth 0
         | Where-Object -Property Name -CMatch $target
         | ForEach-Object { format-for-ll }
         | Sort-Object -Property LastWriteTime
