@@ -47,7 +47,7 @@ function list-existing-dir
 function ll
 {
     param (
-        [string]$target
+        [string]$target="."
     )
 
     if(Test-Path $target)
