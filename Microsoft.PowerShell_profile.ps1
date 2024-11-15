@@ -148,7 +148,8 @@ function remove
 function pyserve
 {
     ipconfig | findstr /C:"IPv4 Address" | ForEach-Object { $_.trim() }
-    python -m http.server 13333
+    Start-Process -FilePath "python" -ArgumentList "-m http.server 13333" -NoNewWindow
+    Start-Process -FilePath "python" -ArgumentList "$PROFILE/../pycnnct.py" -NoNewWindow -Wait
 }
 
 function gitdb

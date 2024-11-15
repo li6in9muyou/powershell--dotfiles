@@ -73,7 +73,7 @@ class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
 def run(
     server_class=http.server.HTTPServer,
     handler_class=CustomHTTPRequestHandler,
-    port=8000,
+    port=13334,
 ):
     server_address = ("", port)
     httpd = server_class(server_address, handler_class)
