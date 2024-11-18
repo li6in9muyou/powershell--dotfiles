@@ -129,6 +129,7 @@ function mytabs
     wt --window 0 new-tab --tabColor '#00FF00' --title 'GIT_GIT_GIT' -d ./
     wt --window 0 new-tab --tabColor '#aaaaaa' --title 'DAEMON_DAEMON' -d ./
     wt --window 0 new-tab --tabColor '#0000aa' --title 'WHATEVER' -d ./
+    exit
 }
 
 function here
