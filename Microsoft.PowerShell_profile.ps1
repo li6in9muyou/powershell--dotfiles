@@ -108,7 +108,15 @@ function prompt
     $time = $(Get-Date -Format "HH:mm:ss")
 
     # https://learn.microsoft.com/en-us/windows/console/console-virtual-terminal-sequences#extended-colors
-    "$([char]27)[48;2;255;0;0m$([char]27)[38;2;255;255;0m$time $($Host.UI.RawUI.WindowTitle -Split '_' | Select-Object -first 1) $(truncate_path $executionContext.SessionState.Path.CurrentLocation)>$([char]27)[0m "
+    $color_prefix=""
+    switch ($($Host.UI.RawUI.WindowTitle -Split '_' | Select-Object -first 1)) {
+        "WHATEVER" { $color_prefix = "$([char]27)[48;2;0;0;255m$([char]27)[38;2;255;255;255m" }
+        "DAEMON" { $color_prefix = "$([char]27)[48;2;100;100;100m$([char]27)[38;2;255;255;0m" }
+        "GIT" { $color_prefix = "$([char]27)[48;2;0;255;0m$([char]27)[38;2;0;0;0m" }
+        "MAIN" { $color_prefix = "$([char]27)[48;2;255;0;0m$([char]27)[38;2;255;255;0m" }
+        default { $color_prefix = "$([char]27)[48;2;210;180;140m$([char]27)[38;2;0;0;0m" }
+    }
+    "$color_prefix$time $($Host.UI.RawUI.WindowTitle -Split '_' | Select-Object -first 1) $(truncate_path $executionContext.SessionState.Path.CurrentLocation)>$([char]27)[0m "
 }
 
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
