@@ -186,6 +186,7 @@ Set-PSReadLineKeyHandler -Chord Ctrl+n -Function NextHistory
 Set-PSReadLineKeyHandler -Chord Ctrl+y -Function AcceptLine
 Set-Alias -Name gti -Value git -Force
 Set-Alias -Name nivm -Value nvim -Force
+Set-Alias -Name mvn -Value nvm -Force
 
 function sb
 {
