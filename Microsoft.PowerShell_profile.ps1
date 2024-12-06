@@ -1,3 +1,5 @@
+Set-Location D:\Downloads
+
 chcp 65001 | Out-Null
 [console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
