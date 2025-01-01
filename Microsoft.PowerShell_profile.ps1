@@ -223,3 +223,24 @@ function repeat
         Invoke-Expression $Command
     }
 }
+
+
+function take_a_break {
+    param (
+        [string[]]$Times = @("09:48", "10:48", "11:48", "14:30", "15:30", "16:30")
+    )
+
+    $lockTimes = $Times | ForEach-Object { [TimeSpan]::Parse($_) }
+
+    while ($true) {
+        $currentTime = (Get-Date).TimeOfDay
+
+        foreach ($lockTime in $lockTimes) {
+            if ($currentTime.Hours -eq $lockTime.Hours -and $currentTime.Minutes -eq $lockTime.Minutes) {
+                rundll32.exe user32.dll,LockWorkStation
+            }
+        }
+
+        Start-Sleep -Seconds 27
+    }
+}
