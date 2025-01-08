@@ -231,12 +231,12 @@ function take_a_break {
     )
 
     $lockTimes = $Times | ForEach-Object { [TimeSpan]::Parse($_) }
+    Write-Output "breaks: $Times"
+    Write-Output ""
 
     while ($true) {
-        echo "breaks: $Times"
-        echo ""
         $currentTime = (Get-Date).TimeOfDay
-        echo "running... $(Get-Date -Format HH:mm:ss)"
+        Write-Output "running... $(Get-Date -Format HH:mm:ss)"
 
         foreach ($lockTime in $lockTimes) {
             if ($currentTime.Hours -eq $lockTime.Hours -and $currentTime.Minutes -eq $lockTime.Minutes) {
