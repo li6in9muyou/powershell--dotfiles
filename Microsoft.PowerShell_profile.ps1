@@ -230,20 +230,41 @@ function take_a_break {
         [string[]]$Times = @("09:48", "10:48", "11:48", "14:30", "15:30", "16:30")
     )
 
+    $lockFilePath = "$env:TEMP\take_a_break.lock"
+    $today = (Get-Date).ToString("yyyy-MM-dd")
+
+    if (Test-Path $lockFilePath) {
+        $fileContent = Get-Content $lockFilePath
+
+        if ($fileContent -ne $today) {
+            Set-Content $lockFilePath $today
+        } else {
+            return
+        }
+    } else {
+        New-Item -Path $lockFilePath -ItemType File -Value $today
+    }
+
     $lockTimes = $Times | ForEach-Object { [TimeSpan]::Parse($_) }
     Write-Output "breaks: $Times"
     Write-Output ""
 
-    while ($true) {
-        $currentTime = (Get-Date).TimeOfDay
-        Write-Output "running... $(Get-Date -Format HH:mm:ss)"
+    try {
+        while ($true) {
+            $currentTime = (Get-Date).TimeOfDay
 
-        foreach ($lockTime in $lockTimes) {
-            if ($currentTime.Hours -eq $lockTime.Hours -and $currentTime.Minutes -eq $lockTime.Minutes) {
-                rundll32.exe user32.dll,LockWorkStation
+            foreach ($lockTime in $lockTimes) {
+                if ($currentTime.Hours -eq $lockTime.Hours -and $currentTime.Minutes -eq $lockTime.Minutes) {
+                    rundll32.exe user32.dll,LockWorkStation
+                }
             }
-        }
 
-        Start-Sleep -Seconds 27
+            Start-Sleep -Seconds 27
+        }
+    }
+    finally {
+        Remove-Item $lockFilePath -ErrorAction SilentlyContinue
     }
 }
+
+take_a_break
