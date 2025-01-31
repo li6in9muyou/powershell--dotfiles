@@ -242,7 +242,7 @@ function take_a_break {
             return
         }
     } else {
-        New-Item -Path $lockFilePath -ItemType File -Value $today
+        New-Item -Path $lockFilePath -ItemType File -Value $today | Out-Null
     }
 
     $lockTimes = $Times | ForEach-Object { [TimeSpan]::Parse($_) }
@@ -266,5 +266,3 @@ function take_a_break {
         Remove-Item $lockFilePath -ErrorAction SilentlyContinue
     }
 }
-
-take_a_break
