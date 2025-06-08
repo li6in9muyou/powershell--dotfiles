@@ -253,3 +253,16 @@ function take_a_break {
         Start-Sleep -Seconds 27
     }
 }
+
+function gc {
+    $selectedBranch = git newbranch |
+        ForEach-Object { ($_ -split '\s+')[-1] } |
+        ForEach-Object { $_.Trim() } |
+        Select-Object -Unique |
+        fzf --tac --cycle --preview "pwsh -NoProfile -Command echo {} && git lgl {}"`
+          --preview-window "right,70%,wrap"
+
+    if ($selectedBranch) {
+        git checkout $selectedBranch
+    }
+}
