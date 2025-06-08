@@ -266,3 +266,12 @@ function gc {
         git checkout $selectedBranch
     }
 }
+
+function fz {
+    $targetDirectory = Get-ChildItem -Recurse -Directory -Force |
+                       Select-Object -ExpandProperty FullName |
+                       fzf --cycle
+    if ($targetDirectory) {
+        z $targetDirectory
+    }
+}
