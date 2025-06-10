@@ -190,6 +190,7 @@ Set-PSReadLineKeyHandler -Chord Ctrl+p -Function PreviousHistory
 Set-PSReadLineKeyHandler -Chord Ctrl+n -Function NextHistory
 Set-PSReadLineKeyHandler -Chord Ctrl+y -Function AcceptLine
 Set-Alias -Name gti -Value git -Force
+Set-Alias -Name g -Value git -Force
 Set-Alias -Name nivm -Value nvim -Force
 Set-Alias -Name nvmi -Value nvim -Force
 Set-Alias -Name mvn -Value nvm -Force
@@ -254,7 +255,7 @@ function take_a_break {
     }
 }
 
-function gc {
+function fzf_git_checkout {
     $selectedBranch = git newbranch |
                       ForEach-Object { ($_ -split '\s+')[-1] } |
                       ForEach-Object { $_.Trim() } |
@@ -266,6 +267,8 @@ function gc {
         git checkout $selectedBranch
     }
 }
+
+Set-Alias -Name gc -Value fzf_git_checkout -Force
 
 function fz {
     $targetDirectory = Get-ChildItem -Recurse -Directory -Force |
