@@ -251,7 +251,7 @@ function take_a_break {
             }
         }
 
-        Start-Sleep -Seconds 27
+        Start-Sleep -Seconds 11
     }
 }
 
