@@ -142,6 +142,9 @@ function mytabs
     exit
 }
 
+Set-Alias -Name myutabs -Value mytabs -Force
+Set-Alias -Name muytabs -Value mytabs -Force
+
 function here
 {
     explorer.exe .
