@@ -248,13 +248,20 @@ function take_a_break {
         $currentTime = (Get-Date).TimeOfDay
         Write-Output "running... $(Get-Date -Format HH:mm:ss)"
 
+        $isBreakTime = $false
         foreach ($lockTime in $lockTimes) {
             if ($currentTime.Hours -eq $lockTime.Hours -and $currentTime.Minutes -eq $lockTime.Minutes) {
-                rundll32.exe user32.dll,LockWorkStation
+                $isBreakTime = $true
+                break
             }
         }
 
-        Start-Sleep -Seconds 11
+        if ($isBreakTime) {
+            rundll32.exe user32.dll,LockWorkStation
+            Start-Sleep -Seconds 1
+        } else {
+            Start-Sleep -Seconds 50
+        }
     }
 }
 
