@@ -167,7 +167,6 @@ function pyserve
 
     ipconfig | findstr /C:"IPv4 Address" | ForEach-Object { $_.trim() }
     Start-Process -FilePath "python" -ArgumentList "-m http.server $Port" -NoNewWindow -Wait
-    Start-Process -FilePath "python" -ArgumentList "$PROFILE/../pycnnct.py" -NoNewWindow -Wait
 }
 
 function gitdb
