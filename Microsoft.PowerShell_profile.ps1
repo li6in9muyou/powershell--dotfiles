@@ -142,6 +142,10 @@ function mytabs
     exit
 }
 
+Set-Alias -Name my -Value mytabs -Force
+Set-Alias -Name myt -Value mytabs -Force
+Set-Alias -Name myta -Value mytabs -Force
+Set-Alias -Name mytab -Value mytabs -Force
 Set-Alias -Name myutabs -Value mytabs -Force
 Set-Alias -Name muytabs -Value mytabs -Force
 
