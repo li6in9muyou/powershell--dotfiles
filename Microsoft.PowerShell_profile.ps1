@@ -6,6 +6,9 @@ Set-PSReadLineOption -PredictionSource History
 Set-PSReadLineOption -PredictionViewStyle ListView
 Set-PSReadLineOption -EditMode Windows
 
+$MaximumHistoryCount = 32767
+Set-PSReadLineOption -MaximumHistoryCount 100000 -HistoryNoDuplicates
+
 function Convert-BytesToHumanReadable
 {
     param(
