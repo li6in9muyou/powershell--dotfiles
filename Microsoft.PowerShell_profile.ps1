@@ -291,3 +291,7 @@ function fz {
         z $targetDirectory
     }
 }
+
+Set-Alias -Name g -Value git -Force
+Set-Alias -Name n -Value nvim -Force
+Set-Alias -Name v -Value nvim -Force
