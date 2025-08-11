@@ -173,7 +173,14 @@ function pyserve
     )
 
     ipconfig | findstr /C:"IPv4 Address" | ForEach-Object { $_.trim() }
-    Start-Process -FilePath "python" -ArgumentList "-m http.server $Port" -NoNewWindow -Wait
+
+    $mypyserve_path = Join-Path -Path $PSScriptRoot -ChildPath "mypyserve.py"
+
+    if (Test-Path $mypyserve_path) {
+        Start-Process -FilePath "python" -ArgumentList "$mypyserve_path $Port" -NoNewWindow -Wait
+    } else {
+        Write-Error "在 $PSScriptRoot 目录下找不到 mypyserve.py 文件。"
+    }
 }
 
 function gitdb
