@@ -9,6 +9,23 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
     A custom request handler that sets the correct Content-Type for specific file types.
     """
 
+    def set_cors_headers(self):
+        origin = self.headers.get("Origin")
+        if origin:
+            self.send_header("Access-Control-Allow-Origin", origin)
+        self.send_header("Access-Control-Allow-Methods", "GET, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "*")
+        self.send_header("Access-Control-Allow-Credentials", "true")
+
+    def end_headers(self):
+        self.set_cors_headers()
+        super().end_headers()
+
+    def do_OPTIONS(self):
+        self.send_response(200)
+        self.set_cors_headers()
+        self.end_headers()
+
     def guess_type(self, path):
         """
         Overrides the base method to provide custom MIME types.
