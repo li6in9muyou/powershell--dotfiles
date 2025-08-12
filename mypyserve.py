@@ -1,6 +1,5 @@
 import http.server
 import os
-import http.client
 import socket
 import sys
 
