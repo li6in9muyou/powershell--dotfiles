@@ -250,7 +250,7 @@ function repeat
 
 function take_a_break {
     param (
-        [string[]]$Times = @("09:48", "10:48", "11:48", "14:30", "15:30", "16:30")
+        [string[]]$Times = @("09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00")
     )
 
     $lockTimes = $Times | ForEach-Object { [TimeSpan]::Parse($_) }
@@ -270,8 +270,10 @@ function take_a_break {
         }
 
         if ($isBreakTime) {
-            rundll32.exe user32.dll,LockWorkStation
-            Start-Sleep -Seconds 1
+            for ($i = 0; $i -lt 360; $i++) {
+                rundll32.exe user32.dll,LockWorkStation
+                Start-Sleep -Seconds 1
+            }
         } else {
             Start-Sleep -Seconds 50
         }
