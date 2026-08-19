@@ -1,3 +1,4 @@
+$env:PYTHONUTF8 = 1
 $Env:COREPACK_ENABLE_AUTO_PIN = 0
 chcp 65001 | Out-Null
 [console]::OutputEncoding = [System.Text.Encoding]::UTF8
